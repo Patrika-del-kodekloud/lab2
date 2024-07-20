@@ -1,0 +1,30 @@
+name: Exploring Workflow Dispatch Trigger
+
+on:
+  workflow_dispatch:
+     inputs:
+       run_job:
+        description: 'Run Specific Job'
+        required: false
+        type: boolean
+       custom_message:
+        description: 'Enter a custom message'
+        type: string
+        required: false
+
+
+jobs:
+  job1:
+    runs-on: self-hosted
+    steps:
+      - run: echo "Exploring Workflow Dispatch Trigger"
+  job2:
+    runs-on: self-hosted
+    steps:
+
+      - name:  Printing Custom Message
+        run: echo ${{ inputs.custom_message }}
+
+      - name:  Printing run-job boolean value
+        if: github.event.inputs.run_job == 'true'
+        run: echo ${{ inputs.run_job }}
